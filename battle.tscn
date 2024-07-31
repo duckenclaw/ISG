@@ -1,0 +1,266 @@
+[gd_scene load_steps=8 format=3 uid="uid://dva743fbubq78"]
+
+[ext_resource type="Script" path="res://battle.gd" id="1_jibe5"]
+[ext_resource type="Texture2D" uid="uid://b324bh312gk5r" path="res://art/Extraterrestrial Pixel Art Background.png" id="2_rt3b8"]
+[ext_resource type="Texture2D" uid="uid://d0wocfj122du5" path="res://art/spaceman.png" id="3_an4d5"]
+[ext_resource type="Script" path="res://Voltex.gd" id="4_kq02u"]
+[ext_resource type="Texture2D" uid="uid://bdy68ty88613p" path="res://art/voltex.png" id="4_y7uir"]
+
+[sub_resource type="Theme" id="Theme_ldfc7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3y7c7"]
+bg_color = Color(0.101961, 0.745098, 0.956863, 1)
+skew = Vector2(0.5, 2.08165e-12)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.0784314, 0.403922, 0.92549, 1)
+corner_detail = 5
+
+[node name="Battle" type="Control"]
+layout_mode = 3
+anchor_right = 0.839
+anchor_bottom = 0.895
+offset_right = 0.471947
+offset_bottom = 0.0399737
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jibe5")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = -4.0
+offset_right = 244.0
+offset_bottom = 118.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_rt3b8")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -280.0
+offset_right = 199.0
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="ParticlePointsCounter" type="Label" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "Particles: 3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WeaponContainer" type="HFlowContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+alignment = 1
+
+[node name="ParticlePoints" type="VBoxContainer" parent="Panel/VBoxContainer/WeaponContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="WeaponPPUp" type="Button" parent="Panel/VBoxContainer/WeaponContainer/ParticlePoints"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "↑"
+
+[node name="WeaponPP" type="Label" parent="Panel/VBoxContainer/WeaponContainer/ParticlePoints"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+theme = SubResource("Theme_ldfc7")
+text = "1
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WeaponPPDown" type="Button" parent="Panel/VBoxContainer/WeaponContainer/ParticlePoints"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "↓
+"
+
+[node name="Damage" type="Label" parent="Panel/VBoxContainer/WeaponContainer"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+theme = SubResource("Theme_ldfc7")
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DamageDiceContainer" type="VBoxContainer" parent="Panel/VBoxContainer/WeaponContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="WeaponDDUp" type="Button" parent="Panel/VBoxContainer/WeaponContainer/DamageDiceContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "↑"
+
+[node name="WeaponDice" type="Label" parent="Panel/VBoxContainer/WeaponContainer/DamageDiceContainer"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+theme = SubResource("Theme_ldfc7")
+text = "d4
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WeaponDDDown" type="Button" parent="Panel/VBoxContainer/WeaponContainer/DamageDiceContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "↓
+"
+
+[node name="ArmorContainer" type="HFlowContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="ParticlePoints" type="VBoxContainer" parent="Panel/VBoxContainer/ArmorContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ArmorPPUp" type="Button" parent="Panel/VBoxContainer/ArmorContainer/ParticlePoints"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "↑"
+
+[node name="ArmorPP" type="Label" parent="Panel/VBoxContainer/ArmorContainer/ParticlePoints"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+theme = SubResource("Theme_ldfc7")
+text = "1
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ArmorPPDown" type="Button" parent="Panel/VBoxContainer/ArmorContainer/ParticlePoints"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "↓
+"
+
+[node name="DefenseDiceContainer" type="VBoxContainer" parent="Panel/VBoxContainer/ArmorContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ArmorDDUp" type="Button" parent="Panel/VBoxContainer/ArmorContainer/DefenseDiceContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "↑"
+
+[node name="ArmorDice" type="Label" parent="Panel/VBoxContainer/ArmorContainer/DefenseDiceContainer"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+theme = SubResource("Theme_ldfc7")
+text = "d4
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ArmorDDDown" type="Button" parent="Panel/VBoxContainer/ArmorContainer/DefenseDiceContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "↓
+"
+
+[node name="PlayerSprite" type="Sprite2D" parent="."]
+position = Vector2(282, 436)
+scale = Vector2(0.207275, 0.207275)
+texture = ExtResource("3_an4d5")
+
+[node name="EnemyContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -272.0
+offset_right = 221.0
+offset_bottom = 44.0001
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("4_kq02u")
+
+[node name="EnemyHealth" type="ProgressBar" parent="EnemyContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 30)
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_3y7c7")
+max_value = 50.0
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="VoltexSprite" type="Sprite2D" parent="EnemyContainer"]
+position = Vector2(245, 359)
+scale = Vector2(0.516113, 0.516113)
+texture = ExtResource("4_y7uir")
+flip_h = true
+
+[node name="EndTurn" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -127.5
+offset_top = -89.0
+offset_right = 127.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "END TURN
+"
+
+[node name="DiceImagesContainer" type="HFlowContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.749
+anchor_top = 0.711
+anchor_right = 0.749
+anchor_bottom = 0.711
+offset_left = -229.283
+offset_top = -59.38
+offset_right = 229.717
+offset_bottom = 59.62
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="pressed" from="Panel/VBoxContainer/WeaponContainer/ParticlePoints/WeaponPPUp" to="." method="_on_weapon_pp_up_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/WeaponContainer/ParticlePoints/WeaponPPDown" to="." method="_on_weapon_pp_down_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/WeaponContainer/DamageDiceContainer/WeaponDDUp" to="." method="_on_weapon_dd_up_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/WeaponContainer/DamageDiceContainer/WeaponDDDown" to="." method="_on_weapon_dd_down_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/ArmorContainer/ParticlePoints/ArmorPPUp" to="." method="_on_weapon_pp_up_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/ArmorContainer/ParticlePoints/ArmorPPDown" to="." method="_on_weapon_pp_down_pressed"]
+[connection signal="pressed" from="EndTurn" to="." method="end_turn"]
