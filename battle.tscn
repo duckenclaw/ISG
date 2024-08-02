@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://battle.gd" id="1_jibe5"]
 [ext_resource type="Texture2D" uid="uid://b324bh312gk5r" path="res://art/Extraterrestrial Pixel Art Background.png" id="2_rt3b8"]
 [ext_resource type="Texture2D" uid="uid://d0wocfj122du5" path="res://art/spaceman.png" id="3_an4d5"]
-[ext_resource type="Script" path="res://Voltex.gd" id="4_kq02u"]
+[ext_resource type="Script" path="res://scripts/Voltex.gd" id="4_kq02u"]
 [ext_resource type="Texture2D" uid="uid://bdy68ty88613p" path="res://art/voltex.png" id="4_y7uir"]
 
 [sub_resource type="Theme" id="Theme_ldfc7"]
