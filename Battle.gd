@@ -1,7 +1,7 @@
 extends Control
 
 var particlePoints = 1
-var hp = 50
+var hp = 25
 
 var weaponPP = 5
 var weaponDices = 2
@@ -9,8 +9,8 @@ var weaponDiceCategory = 6
 var weaponRollResults = []
 
 var defensePP = 1
-var defense_dice_category = 6
-var defense_dices = 2
+var defenseDiceCategory = 6
+var defenseDices = 2
 var defenseRollResults = []
 
 # Called when the node enters the scene tree for the first time.
@@ -52,23 +52,43 @@ func _on_weapon_dd_down_pressed():
 	recalculateWeapon()
 
 func roll_damage():
+	weaponRollResults.clear()
 	print("Player attack roll " + str(weaponDices) + "d" + str(weaponDiceCategory) + " dices")
 	for dice in range(int(weaponDices)):
 		var roll = randi_range(1, weaponDiceCategory)
-		print(str(dice) + " dice rolled a " + str(roll))
+		print(str(dice+1) + " dice rolled a " + str(roll))
 		weaponRollResults.append(roll)
 		create_dice_image(roll)
+		
+func roll_defense():
+	defenseRollResults.clear()
+	print("Player defense roll " + str(defenseDices) + "d" + str(defenseDiceCategory))
+	for dice in range(defenseDices):
+		var roll = randi_range(1, defenseDiceCategory)
+		print(str(dice+1) + " d" + str(defenseDiceCategory) + "dice rolled a " + str(roll))
+		defenseRollResults.append(roll)
+	return defenseRollResults
 
 func end_turn():
-	weaponRollResults.clear()
+	var newRollResults = []
 	roll_damage()
+	roll_defense()
 
 	# Call Voltex end_turn function
 	var voltex = $EnemyContainer
-	var weaponRemainingolls = voltex.end_turn(weaponRollResults)
+	var attackRollResults = voltex.end_turn(weaponRollResults)
 
-	# Update rollResults to the remaining rolls after defense
-	weaponRollResults = weaponRemainingolls
+	for roll in attackRollResults:
+		if roll in defenseRollResults:
+			defenseRollResults.erase(roll)
+		else:
+			newRollResults.append(roll)
+			
+	for roll in newRollResults:
+		hp -= roll
+	
+	print("Player HP: ", hp)
+	
 
 func create_dice_image(roll_value):
 	var diceImagePath = "res://art/dice" + str(weaponDiceCategory) + ".png"
