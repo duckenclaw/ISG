@@ -1,7 +1,7 @@
 extends Control
 
 var particlePoints = 1
-var hp = 25
+var hp = 100
 
 var weaponPP = 5
 var weaponDices = 2
@@ -17,6 +17,9 @@ var defenseRollResults = []
 func _ready():
 	recalculateWeapon()
 	
+	
+func calculate_hp(hp):
+	$PlayerContainer/PlayerHealth.value = hp
 
 func recalculateWeapon():
 	weaponDices = (weaponPP + 1) / (weaponDiceCategory / 2)
@@ -54,18 +57,22 @@ func _on_weapon_dd_down_pressed():
 func roll_damage():
 	weaponRollResults.clear()
 	print("Player attack roll " + str(weaponDices) + "d" + str(weaponDiceCategory) + " dices")
+	$ScrollContainer/BattleLog.text += "\nPlayer attack roll " + str(weaponDices) + "d" + str(weaponDiceCategory) + " dices"
 	for dice in range(int(weaponDices)):
 		var roll = randi_range(1, weaponDiceCategory)
 		print(str(dice+1) + " dice rolled a " + str(roll))
+		$ScrollContainer/BattleLog.text += "\n" + str(dice+1) + " dice rolled a " + str(roll)
 		weaponRollResults.append(roll)
-		create_dice_image(roll)
+		#create_dice_image(roll)
 		
 func roll_defense():
 	defenseRollResults.clear()
 	print("Player defense roll " + str(defenseDices) + "d" + str(defenseDiceCategory))
+	$ScrollContainer/BattleLog.text += "\nPlayer defense roll " + str(defenseDices) + "d" + str(defenseDiceCategory)
 	for dice in range(defenseDices):
 		var roll = randi_range(1, defenseDiceCategory)
 		print(str(dice+1) + " d" + str(defenseDiceCategory) + "dice rolled a " + str(roll))
+		$ScrollContainer/BattleLog.text += "\n" + str(dice+1) + " d" + str(defenseDiceCategory) + "dice rolled a " + str(roll)
 		defenseRollResults.append(roll)
 	return defenseRollResults
 
@@ -88,6 +95,7 @@ func end_turn():
 		hp -= roll
 	
 	print("Player HP: ", hp)
+	calculate_hp(hp)
 	
 
 func create_dice_image(roll_value):
