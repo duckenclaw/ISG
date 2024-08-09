@@ -1,12 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://dva743fbubq78"]
+[gd_scene load_steps=9 format=3 uid="uid://dva743fbubq78"]
 
 [ext_resource type="Script" path="res://battle.gd" id="1_jibe5"]
 [ext_resource type="Texture2D" uid="uid://b324bh312gk5r" path="res://art/Extraterrestrial Pixel Art Background.png" id="2_rt3b8"]
 [ext_resource type="Texture2D" uid="uid://d0wocfj122du5" path="res://art/spaceman.png" id="3_an4d5"]
+[ext_resource type="Script" path="res://scripts/Player.gd" id="3_g553k"]
 [ext_resource type="Script" path="res://scripts/Voltex.gd" id="4_kq02u"]
 [ext_resource type="Texture2D" uid="uid://bdy68ty88613p" path="res://art/voltex.png" id="4_y7uir"]
-
-[sub_resource type="Theme" id="Theme_ldfc7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3y7c7"]
 bg_color = Color(0.101961, 0.745098, 0.956863, 1)
@@ -18,12 +17,14 @@ border_width_bottom = 2
 border_color = Color(0.0784314, 0.403922, 0.92549, 1)
 corner_detail = 5
 
+[sub_resource type="Theme" id="Theme_ldfc7"]
+
 [node name="Battle" type="Control"]
 layout_mode = 3
 anchor_right = 0.839
 anchor_bottom = 0.895
-offset_right = 0.471947
-offset_bottom = 0.0399737
+offset_right = 225.472
+offset_bottom = 109.04
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jibe5")
@@ -36,20 +37,47 @@ anchor_bottom = 1.0
 offset_left = 1.0
 offset_top = -4.0
 offset_right = 244.0
-offset_bottom = 118.0
+offset_bottom = -37.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_rt3b8")
 expand_mode = 1
 stretch_mode = 4
 
+[node name="PlayerContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.395
+anchor_bottom = 1.097
+offset_left = 205.0
+offset_top = 160.0
+offset_right = -57.84
+offset_bottom = -136.833
+grow_horizontal = 2
+script = ExtResource("3_g553k")
+
+[node name="PlayerHealth" type="ProgressBar" parent="PlayerContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 30)
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_3y7c7")
+step = 1.0
+value = 100.0
+show_percentage = false
+
+[node name="PlayerSprite" type="Sprite2D" parent="PlayerContainer"]
+position = Vector2(115, 251)
+scale = Vector2(0.207275, 0.207275)
+texture = ExtResource("3_an4d5")
+
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -280.0
-offset_right = 199.0
+offset_left = 25.0
+offset_top = -353.0
+offset_right = 179.0
+offset_bottom = -58.0
 grow_vertical = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
@@ -102,7 +130,7 @@ size_flags_vertical = 8
 text = "↓
 "
 
-[node name="Damage" type="Label" parent="Panel/VBoxContainer/WeaponContainer"]
+[node name="DiceAmount" type="Label" parent="Panel/VBoxContainer/WeaponContainer"]
 custom_minimum_size = Vector2(35, 35)
 layout_mode = 2
 theme = SubResource("Theme_ldfc7")
@@ -110,18 +138,18 @@ text = "1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="DamageDiceContainer" type="VBoxContainer" parent="Panel/VBoxContainer/WeaponContainer"]
+[node name="DiceCategory" type="VBoxContainer" parent="Panel/VBoxContainer/WeaponContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="WeaponDDUp" type="Button" parent="Panel/VBoxContainer/WeaponContainer/DamageDiceContainer"]
+[node name="WeaponDDUp" type="Button" parent="Panel/VBoxContainer/WeaponContainer/DiceCategory"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 text = "↑"
 
-[node name="WeaponDice" type="Label" parent="Panel/VBoxContainer/WeaponContainer/DamageDiceContainer"]
+[node name="WeaponDice" type="Label" parent="Panel/VBoxContainer/WeaponContainer/DiceCategory"]
 custom_minimum_size = Vector2(35, 35)
 layout_mode = 2
 theme = SubResource("Theme_ldfc7")
@@ -130,7 +158,7 @@ text = "d4
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="WeaponDDDown" type="Button" parent="Panel/VBoxContainer/WeaponContainer/DamageDiceContainer"]
+[node name="WeaponDDDown" type="Button" parent="Panel/VBoxContainer/WeaponContainer/DiceCategory"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
@@ -168,18 +196,26 @@ size_flags_vertical = 8
 text = "↓
 "
 
-[node name="DefenseDiceContainer" type="VBoxContainer" parent="Panel/VBoxContainer/ArmorContainer"]
+[node name="DiceAmount" type="Label" parent="Panel/VBoxContainer/ArmorContainer"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+theme = SubResource("Theme_ldfc7")
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DiceCategory" type="VBoxContainer" parent="Panel/VBoxContainer/ArmorContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="ArmorDDUp" type="Button" parent="Panel/VBoxContainer/ArmorContainer/DefenseDiceContainer"]
+[node name="ArmorDDUp" type="Button" parent="Panel/VBoxContainer/ArmorContainer/DiceCategory"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 text = "↑"
 
-[node name="ArmorDice" type="Label" parent="Panel/VBoxContainer/ArmorContainer/DefenseDiceContainer"]
+[node name="ArmorDice" type="Label" parent="Panel/VBoxContainer/ArmorContainer/DiceCategory"]
 custom_minimum_size = Vector2(35, 35)
 layout_mode = 2
 theme = SubResource("Theme_ldfc7")
@@ -188,36 +224,12 @@ text = "d4
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ArmorDDDown" type="Button" parent="Panel/VBoxContainer/ArmorContainer/DefenseDiceContainer"]
+[node name="ArmorDDDown" type="Button" parent="Panel/VBoxContainer/ArmorContainer/DiceCategory"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "↓
 "
-
-[node name="PlayerContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.395
-anchor_bottom = 1.097
-offset_left = 205.0
-offset_top = 160.0
-offset_right = 59.035
-offset_bottom = 5.74007
-grow_horizontal = 2
-
-[node name="PlayerHealth" type="ProgressBar" parent="PlayerContainer"]
-custom_minimum_size = Vector2(2.08165e-12, 30)
-layout_mode = 2
-theme_override_styles/fill = SubResource("StyleBoxFlat_3y7c7")
-step = 1.0
-value = 100.0
-show_percentage = false
-
-[node name="PlayerSprite" type="Sprite2D" parent="PlayerContainer"]
-position = Vector2(115, 251)
-scale = Vector2(0.207275, 0.207275)
-texture = ExtResource("3_an4d5")
 
 [node name="EnemyContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -225,9 +237,10 @@ anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -327.0
-offset_right = 186.0
-offset_bottom = 44.0001
+offset_left = -515.0
+offset_top = 49.0
+offset_right = -43.0
+offset_bottom = -67.0
 grow_horizontal = 0
 grow_vertical = 2
 script = ExtResource("4_kq02u")
@@ -241,24 +254,24 @@ value = 100.0
 show_percentage = false
 
 [node name="VoltexSprite" type="Sprite2D" parent="EnemyContainer"]
-position = Vector2(245, 359)
+position = Vector2(245, 302)
 scale = Vector2(0.516113, 0.516113)
 texture = ExtResource("4_y7uir")
 flip_h = true
 
 [node name="EndTurn" type="Button" parent="."]
 layout_mode = 1
-anchors_preset = 7
+anchors_preset = 8
 anchor_left = 0.5
-anchor_top = 1.0
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -36.5
-offset_top = -40.9999
-offset_right = 218.5
-offset_bottom = 48.0001
+anchor_bottom = 0.5
+offset_left = -47.0
+offset_top = 141.5
+offset_right = 43.0
+offset_bottom = 172.5
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
 text = "END TURN
 "
 
@@ -281,10 +294,12 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.316
 anchor_bottom = 0.332
-offset_left = 449.0
-offset_top = 396.0
-offset_right = 401.428
-offset_bottom = 346.44
+offset_left = 470.0
+offset_top = 358.0
+offset_right = 344.328
+offset_bottom = 238.252
+grow_horizontal = 2
+grow_vertical = 2
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 2
 
@@ -294,8 +309,8 @@ text = "Log start"
 
 [connection signal="pressed" from="Panel/VBoxContainer/WeaponContainer/ParticlePoints/WeaponPPUp" to="." method="_on_weapon_pp_up_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/WeaponContainer/ParticlePoints/WeaponPPDown" to="." method="_on_weapon_pp_down_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/WeaponContainer/DamageDiceContainer/WeaponDDUp" to="." method="_on_weapon_dd_up_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/WeaponContainer/DamageDiceContainer/WeaponDDDown" to="." method="_on_weapon_dd_down_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/WeaponContainer/DiceCategory/WeaponDDUp" to="." method="_on_weapon_dd_up_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/WeaponContainer/DiceCategory/WeaponDDDown" to="." method="_on_weapon_dd_down_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/ArmorContainer/ParticlePoints/ArmorPPUp" to="." method="_on_weapon_pp_up_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/ArmorContainer/ParticlePoints/ArmorPPDown" to="." method="_on_weapon_pp_down_pressed"]
 [connection signal="pressed" from="EndTurn" to="." method="end_turn"]

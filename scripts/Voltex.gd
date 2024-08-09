@@ -10,16 +10,14 @@ var defenseDiceCategory = 6
 var defenseDices = 2
 var defenseRollResults = []
 
-
-
 func _ready():
 	recalculate_defense()
 
 func recalculate_defense():
 	defenseDices = (defensePP + 1) / (defenseDiceCategory / 2)
-	
+
 func calculate_hp(hp):
-	$EnemyHealth.value=hp
+	$EnemyHealth.value = hp
 
 func roll_defense():
 	defenseRollResults.clear()
@@ -28,11 +26,11 @@ func roll_defense():
 	battle_log.text += "\nVoltex defense roll " + str(defenseDices) + "d" + str(defenseDiceCategory) + " dices"
 	for dice in range(defenseDices):
 		var roll = randi_range(1, defenseDiceCategory)
-		print(str(dice+1) + " d" + str(defenseDiceCategory) + "dice rolled a " + str(roll))
+		print(str(dice+1) + " d" + str(defenseDiceCategory) + " dice rolled a " + str(roll))
 		battle_log.text += "\n" + str(dice+1) + " dice rolled a " + str(roll)
 		defenseRollResults.append(roll)
 	return defenseRollResults
-	
+
 func roll_damage():
 	weaponRollResults.clear()
 	var battle_log = get_node("../ScrollContainer/BattleLog")
@@ -41,28 +39,25 @@ func roll_damage():
 	for dice in range(int(weaponDices)):
 		var roll = randi_range(1, weaponDiceCategory)
 		print(str(dice+1) + " dice rolled a " + str(roll))
-		battle_log.text += "\n" + str(dice+1) + " d" + str(defenseDiceCategory) + "dice rolled a " + str(roll)
+		battle_log.text += "\n" + str(dice+1) + " dice rolled a " + str(roll)
 		weaponRollResults.append(roll)
-		
+	return weaponRollResults
 
 func end_turn(attackRollResults):
 	var newRollResults = []
 	roll_defense()
 	roll_damage()
-	# Check if any defense roll matches the attack roll and remove them
+
 	for roll in attackRollResults:
 		if roll in defenseRollResults:
 			defenseRollResults.erase(roll)
 		else:
 			newRollResults.append(roll)
 	
-	# Adjust HP for every remaining roll result
 	for roll in newRollResults:
 		hp -= roll
 		calculate_hp(hp)
 	
-	# Print current HP for debugging
 	print("Voltex HP: ", hp)
 
 	return weaponRollResults
-
