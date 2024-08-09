@@ -25,7 +25,7 @@ func recalculate_weapon():
 	weaponDices_UI.text = str(weaponDices)
 	weaponDiceCategory_UI.text = str(weaponDiceCategory)
 
-func calculate_hp(hp):
+func calculate_hp():
 	$PlayerHealth.value = hp
 
 func roll_damage():

@@ -27,30 +27,44 @@ func _on_weapon_dd_down_pressed():
 
 func end_turn():
 	var player = $PlayerContainer
-	var voltex = $EnemyContainer
+	var enemy = $EnemyContainer
 
 	# Player rolls
 	var playerDamageRolls = player.roll_damage()
 	var playerDefenseRolls = player.roll_defense()
 
 	# Voltrex rolls
-	var voltexDamageRolls = voltex.roll_damage()
-	var voltexDefenseRolls = voltex.roll_defense()
+	var enemyDamageRolls = enemy.roll_damage()
+	var enemyDefenseRolls = enemy.roll_defense()
 
-	# Resolve Voltrex's attack
-	var voltexAttackResults = voltex.end_turn(playerDamageRolls)
-	var newRollResults = []
+	var newPlayerAttackResults = []
+	var newEnemyAttackResults = []
 
-	for roll in voltexAttackResults:
+	for roll in enemyDamageRolls:
 		if roll in playerDefenseRolls:
 			playerDefenseRolls.erase(roll)
+			enemyDamageRolls.erase(roll)
 		else:
-			newRollResults.append(roll)
+			newEnemyAttackResults.append(roll)
+			
+	for roll in playerDamageRolls:
+		if roll in enemyDefenseRolls:
+			enemyDefenseRolls.erase(roll)
+			playerDamageRolls.erase(roll)
+		else:
+			newPlayerAttackResults.append(roll)
 	
-	for roll in newRollResults:
+	for roll in newEnemyAttackResults:
 		player.hp -= roll
+		
+	for roll in newPlayerAttackResults:
+		enemy.hp -= roll
 	
 	print("Player HP: ", player.hp)
+	print("Enemy HP: ", enemy.hp)
+	
+	player.calculate_hp()
+	enemy.calculate_hp()
 
 func create_dice_image(actor, roll_value):
 	

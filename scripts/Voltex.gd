@@ -42,22 +42,3 @@ func roll_damage():
 		battle_log.text += "\n" + str(dice+1) + " dice rolled a " + str(roll)
 		weaponRollResults.append(roll)
 	return weaponRollResults
-
-func end_turn(attackRollResults):
-	var newRollResults = []
-	roll_defense()
-	roll_damage()
-
-	for roll in attackRollResults:
-		if roll in defenseRollResults:
-			defenseRollResults.erase(roll)
-		else:
-			newRollResults.append(roll)
-	
-	for roll in newRollResults:
-		hp -= roll
-		calculate_hp(hp)
-	
-	print("Voltex HP: ", hp)
-
-	return weaponRollResults
