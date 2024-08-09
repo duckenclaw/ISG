@@ -14,16 +14,30 @@ var defenseDices = 1
 var defenseRollResults = []
 
 func _ready():
-	recalculate_weapon()
+	recalculate_attack()
+	recalculate_defense()
 
-func recalculate_weapon():
+func recalculate_attack():
 	var weaponPP_UI = get_node("../Panel/VBoxContainer/WeaponContainer/ParticlePoints/WeaponPP")
 	var weaponDices_UI = get_node("../Panel/VBoxContainer/WeaponContainer/DiceAmount")
 	var weaponDiceCategory_UI = get_node("../Panel/VBoxContainer/WeaponContainer/DiceCategory/WeaponDice")
+	var particlePoints_UI = get_node("../Panel/VBoxContainer/ParticlePointsCounter")
 	weaponDices = (weaponPP + 1) / (weaponDiceCategory / 2)
+	particlePoints_UI.text = str(particlePoints)
 	weaponPP_UI.text = str(weaponPP)
 	weaponDices_UI.text = str(weaponDices)
 	weaponDiceCategory_UI.text = str(weaponDiceCategory)
+	
+func recalculate_defense():
+	var defensePP_UI = get_node("../Panel/VBoxContainer/DefenseContainer/ParticlePoints/DefensePP")
+	var defenseDices_UI = get_node("../Panel/VBoxContainer/DefenseContainer/DiceAmount")
+	var defenseDiceCategory_UI = get_node("../Panel/VBoxContainer/DefenseContainer/DiceCategory/DefenseDice")
+	var particlePoints_UI = get_node("../Panel/VBoxContainer/ParticlePointsCounter")
+	defenseDices = (defensePP + 1) / (defenseDiceCategory / 2)
+	particlePoints_UI.text = str(particlePoints)
+	defensePP_UI.text = str(defensePP)
+	defenseDices_UI.text = str(defenseDices)
+	defenseDiceCategory_UI.text = str(defenseDiceCategory)
 
 func calculate_hp():
 	$PlayerHealth.value = hp

@@ -1,10 +1,12 @@
 extends VBoxContainer
 
 var hp = 100
+
 var weaponPP = 5
 var weaponDices = 2
 var weaponDiceCategory = 6
 var weaponRollResults = []
+
 var defensePP = 5
 var defenseDiceCategory = 6
 var defenseDices = 2
@@ -16,7 +18,7 @@ func _ready():
 func recalculate_defense():
 	defenseDices = (defensePP + 1) / (defenseDiceCategory / 2)
 
-func calculate_hp(hp):
+func calculate_hp():
 	$EnemyHealth.value = hp
 
 func roll_defense():

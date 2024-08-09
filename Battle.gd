@@ -1,29 +1,53 @@
 extends Control
 
 func _ready():
-	$PlayerContainer.recalculate_weapon()
+	$PlayerContainer.recalculate_attack()
 
 func _on_weapon_pp_up_pressed():
 	if $PlayerContainer.particlePoints > 0:
 		$PlayerContainer.particlePoints -= 1
 		$PlayerContainer.weaponPP += 1
-	$PlayerContainer.recalculate_weapon()
+	$PlayerContainer.recalculate_attack()
 
 func _on_weapon_pp_down_pressed():
 	if $PlayerContainer.weaponPP > 1:
 		$PlayerContainer.particlePoints += 1
 		$PlayerContainer.weaponPP -= 1
-	$PlayerContainer.recalculate_weapon()
+	$PlayerContainer.recalculate_attack()
 
 func _on_weapon_dd_up_pressed():
 	if $PlayerContainer.weaponDiceCategory < 12:
 		$PlayerContainer.weaponDiceCategory += 2
-	$PlayerContainer.recalculate_weapon()
+	$PlayerContainer.recalculate_attack()
 
 func _on_weapon_dd_down_pressed():
 	if $PlayerContainer.weaponDiceCategory > 4:
 		$PlayerContainer.weaponDiceCategory -= 2
-	$PlayerContainer.recalculate_weapon()
+	$PlayerContainer.recalculate_attack()
+
+
+func _on_defense_pp_up_pressed():
+	if $PlayerContainer.particlePoints > 0:
+		$PlayerContainer.particlePoints -= 1
+		$PlayerContainer.defensePP += 1
+	$PlayerContainer.recalculate_defense()
+
+func _on_defense_pp_down_pressed():
+	if $PlayerContainer.defensePP > 1:
+		$PlayerContainer.particlePoints += 1
+		$PlayerContainer.defensePP -= 1
+	$PlayerContainer.recalculate_defense()
+
+func _on_defense_dd_up_pressed():
+	if $PlayerContainer.defenseDiceCategory < 12:
+		$PlayerContainer.defenseDiceCategory += 2
+	$PlayerContainer.recalculate_defense()
+
+func _on_defense_dd_down_pressed():
+	if $PlayerContainer.defenseDiceCategory > 4:
+		$PlayerContainer.defenseDiceCategory -= 2
+	$PlayerContainer.recalculate_defense()
+
 
 func end_turn():
 	var player = $PlayerContainer

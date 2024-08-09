@@ -165,22 +165,22 @@ size_flags_vertical = 8
 text = "↓
 "
 
-[node name="ArmorContainer" type="HFlowContainer" parent="Panel/VBoxContainer"]
+[node name="DefenseContainer" type="HFlowContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="ParticlePoints" type="VBoxContainer" parent="Panel/VBoxContainer/ArmorContainer"]
+[node name="ParticlePoints" type="VBoxContainer" parent="Panel/VBoxContainer/DefenseContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="ArmorPPUp" type="Button" parent="Panel/VBoxContainer/ArmorContainer/ParticlePoints"]
+[node name="DefensePPUp" type="Button" parent="Panel/VBoxContainer/DefenseContainer/ParticlePoints"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 text = "↑"
 
-[node name="ArmorPP" type="Label" parent="Panel/VBoxContainer/ArmorContainer/ParticlePoints"]
+[node name="DefensePP" type="Label" parent="Panel/VBoxContainer/DefenseContainer/ParticlePoints"]
 custom_minimum_size = Vector2(35, 35)
 layout_mode = 2
 theme = SubResource("Theme_ldfc7")
@@ -189,14 +189,14 @@ text = "1
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ArmorPPDown" type="Button" parent="Panel/VBoxContainer/ArmorContainer/ParticlePoints"]
+[node name="DefensePPDown" type="Button" parent="Panel/VBoxContainer/DefenseContainer/ParticlePoints"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "↓
 "
 
-[node name="DiceAmount" type="Label" parent="Panel/VBoxContainer/ArmorContainer"]
+[node name="DiceAmount" type="Label" parent="Panel/VBoxContainer/DefenseContainer"]
 custom_minimum_size = Vector2(35, 35)
 layout_mode = 2
 theme = SubResource("Theme_ldfc7")
@@ -204,18 +204,18 @@ text = "1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="DiceCategory" type="VBoxContainer" parent="Panel/VBoxContainer/ArmorContainer"]
+[node name="DiceCategory" type="VBoxContainer" parent="Panel/VBoxContainer/DefenseContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="ArmorDDUp" type="Button" parent="Panel/VBoxContainer/ArmorContainer/DiceCategory"]
+[node name="DefenseDDUp" type="Button" parent="Panel/VBoxContainer/DefenseContainer/DiceCategory"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 text = "↑"
 
-[node name="ArmorDice" type="Label" parent="Panel/VBoxContainer/ArmorContainer/DiceCategory"]
+[node name="DefenseDice" type="Label" parent="Panel/VBoxContainer/DefenseContainer/DiceCategory"]
 custom_minimum_size = Vector2(35, 35)
 layout_mode = 2
 theme = SubResource("Theme_ldfc7")
@@ -224,7 +224,7 @@ text = "d4
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ArmorDDDown" type="Button" parent="Panel/VBoxContainer/ArmorContainer/DiceCategory"]
+[node name="DefenseDDDown" type="Button" parent="Panel/VBoxContainer/DefenseContainer/DiceCategory"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
@@ -311,6 +311,8 @@ text = "Log start"
 [connection signal="pressed" from="Panel/VBoxContainer/WeaponContainer/ParticlePoints/WeaponPPDown" to="." method="_on_weapon_pp_down_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/WeaponContainer/DiceCategory/WeaponDDUp" to="." method="_on_weapon_dd_up_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/WeaponContainer/DiceCategory/WeaponDDDown" to="." method="_on_weapon_dd_down_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/ArmorContainer/ParticlePoints/ArmorPPUp" to="." method="_on_weapon_pp_up_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/ArmorContainer/ParticlePoints/ArmorPPDown" to="." method="_on_weapon_pp_down_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/DefenseContainer/ParticlePoints/DefensePPUp" to="." method="_on_defense_pp_up_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/DefenseContainer/ParticlePoints/DefensePPDown" to="." method="_on_defense_pp_down_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/DefenseContainer/DiceCategory/DefenseDDUp" to="." method="_on_defense_dd_up_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/DefenseContainer/DiceCategory/DefenseDDDown" to="." method="_on_defense_dd_down_pressed"]
 [connection signal="pressed" from="EndTurn" to="." method="end_turn"]
