@@ -65,8 +65,9 @@ value = 100.0
 show_percentage = false
 
 [node name="PlayerSprite" type="Sprite2D" parent="PlayerContainer"]
-position = Vector2(115, 251)
-scale = Vector2(0.207275, 0.207275)
+texture_filter = 5
+position = Vector2(113, 236)
+scale = Vector2(0.202637, 0.202637)
 texture = ExtResource("3_an4d5")
 
 [node name="Panel" type="Panel" parent="."]
@@ -266,10 +267,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -47.0
-offset_top = 141.5
-offset_right = 43.0
-offset_bottom = 172.5
+offset_left = -48.0
+offset_top = 200.5
+offset_right = 42.0
+offset_bottom = 231.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "END TURN
@@ -294,10 +295,10 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.316
 anchor_bottom = 0.332
-offset_left = 470.0
-offset_top = 358.0
-offset_right = 344.328
-offset_bottom = 238.252
+offset_left = 469.0
+offset_top = 444.0
+offset_right = 343.328
+offset_bottom = 297.252
 grow_horizontal = 2
 grow_vertical = 2
 horizontal_scroll_mode = 0
