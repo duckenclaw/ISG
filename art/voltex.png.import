@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bdy68ty88613p"
-path="res://.godot/imported/voltex.png-30a666e8fc104d99130dd0d7f0fa8c1f.ctex"
+path="res://.godot/imported/Voltex.png-2254cf3476b3ccc0febc1da04397aa3d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/voltex.png"
-dest_files=["res://.godot/imported/voltex.png-30a666e8fc104d99130dd0d7f0fa8c1f.ctex"]
+source_file="res://art/Voltex.png"
+dest_files=["res://.godot/imported/Voltex.png-2254cf3476b3ccc0febc1da04397aa3d.ctex"]
 
 [params]
 

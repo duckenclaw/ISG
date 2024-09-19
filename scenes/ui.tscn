@@ -1,0 +1,302 @@
+[gd_scene load_steps=7 format=3 uid="uid://cx61ecks3i4cg"]
+
+[ext_resource type="Script" path="res://scripts/UI.gd" id="1_vxw6i"]
+[ext_resource type="Texture2D" uid="uid://b324bh312gk5r" path="res://art/Extraterrestrial Pixel Art Background.png" id="2_f8phi"]
+[ext_resource type="Script" path="res://scripts/Player.gd" id="3_0ngkt"]
+[ext_resource type="Texture2D" uid="uid://d0wocfj122du5" path="res://art/spaceman.png" id="4_h3vfv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ts1kw"]
+bg_color = Color(0.101961, 0.745098, 0.956863, 1)
+skew = Vector2(0.2, 2.08165e-12)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.0784314, 0.403922, 0.92549, 1)
+corner_detail = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_u6cjv"]
+font_size = 10
+font_color = Color(0.192157, 0.2, 0.25098, 1)
+
+[node name="UI" type="Control"]
+layout_mode = 3
+anchor_left = 0.1
+anchor_top = 0.1
+anchor_right = 0.9
+anchor_bottom = 0.9
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vxw6i")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -114.0
+offset_top = -67.0
+offset_right = 1037.0
+offset_bottom = 583.0
+texture = ExtResource("2_f8phi")
+expand_mode = 1
+
+[node name="configurationPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.015
+anchor_top = 0.397
+anchor_right = 0.495
+anchor_bottom = 0.577
+offset_left = -65.024
+offset_top = -205.605
+offset_right = -66.392
+offset_bottom = -26.917
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="attackConfigurationHbox" type="HBoxContainer" parent="configurationPanel"]
+layout_mode = 2
+anchor_left = 0.0199546
+anchor_top = 0.0379629
+anchor_right = 0.0199546
+anchor_bottom = 0.0379629
+offset_left = -1.0
+offset_top = 54.0
+offset_right = 43.0
+offset_bottom = 150.0
+
+[node name="amountSpinnerContainer" type="VBoxContainer" parent="configurationPanel/attackConfigurationHbox"]
+layout_mode = 2
+alignment = 1
+
+[node name="up" type="Button" parent="configurationPanel/attackConfigurationHbox/amountSpinnerContainer"]
+layout_mode = 2
+text = "↑"
+
+[node name="diceAmountDisplay" type="Label" parent="configurationPanel/attackConfigurationHbox/amountSpinnerContainer"]
+layout_mode = 2
+text = "1"
+horizontal_alignment = 1
+
+[node name="down" type="Button" parent="configurationPanel/attackConfigurationHbox/amountSpinnerContainer"]
+layout_mode = 2
+text = "↓"
+
+[node name="diceSpinnerContainer" type="VBoxContainer" parent="configurationPanel/attackConfigurationHbox"]
+layout_mode = 2
+alignment = 1
+
+[node name="up" type="Button" parent="configurationPanel/attackConfigurationHbox/diceSpinnerContainer"]
+layout_mode = 2
+text = "↑"
+
+[node name="diceCategoryDisplay" type="Label" parent="configurationPanel/attackConfigurationHbox/diceSpinnerContainer"]
+layout_mode = 2
+text = "d4"
+horizontal_alignment = 1
+
+[node name="down" type="Button" parent="configurationPanel/attackConfigurationHbox/diceSpinnerContainer"]
+layout_mode = 2
+text = "↓"
+
+[node name="attackDiceImagesContainer" type="HBoxContainer" parent="configurationPanel"]
+layout_mode = 2
+offset_left = 63.8
+offset_top = 72.2
+offset_right = 423.8
+offset_bottom = 152.2
+
+[node name="defenseConfigurationHbox" type="HBoxContainer" parent="configurationPanel"]
+layout_mode = 0
+offset_left = 7.8
+offset_top = 167.2
+offset_right = 51.8
+offset_bottom = 263.2
+
+[node name="amountSpinnerContainer" type="VBoxContainer" parent="configurationPanel/defenseConfigurationHbox"]
+layout_mode = 2
+alignment = 1
+
+[node name="up" type="Button" parent="configurationPanel/defenseConfigurationHbox/amountSpinnerContainer"]
+layout_mode = 2
+text = "↑"
+
+[node name="diceAmountDisplay" type="Label" parent="configurationPanel/defenseConfigurationHbox/amountSpinnerContainer"]
+layout_mode = 2
+text = "1"
+horizontal_alignment = 1
+
+[node name="down" type="Button" parent="configurationPanel/defenseConfigurationHbox/amountSpinnerContainer"]
+layout_mode = 2
+text = "↓"
+
+[node name="diceSpinnerContainer" type="VBoxContainer" parent="configurationPanel/defenseConfigurationHbox"]
+layout_mode = 2
+alignment = 1
+
+[node name="up" type="Button" parent="configurationPanel/defenseConfigurationHbox/diceSpinnerContainer"]
+layout_mode = 2
+text = "↑"
+
+[node name="diceCategoryDisplay" type="Label" parent="configurationPanel/defenseConfigurationHbox/diceSpinnerContainer"]
+layout_mode = 2
+text = "d4"
+horizontal_alignment = 1
+
+[node name="down" type="Button" parent="configurationPanel/defenseConfigurationHbox/diceSpinnerContainer"]
+layout_mode = 2
+text = "↓"
+
+[node name="defenseDiceImagesContainer" type="HBoxContainer" parent="configurationPanel"]
+layout_mode = 0
+offset_left = 63.8
+offset_top = 176.2
+offset_right = 423.8
+offset_bottom = 256.2
+
+[node name="particlePointsDisplay" type="Label" parent="configurationPanel"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 56.0
+offset_bottom = 56.0
+text = "5
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Player" type="Control" parent="."]
+layout_mode = 1
+anchor_right = 0.101
+anchor_bottom = 0.415
+offset_left = 76.8
+offset_top = 279.2
+offset_right = 111.718
+offset_bottom = 336.064
+grow_vertical = 2
+script = ExtResource("3_0ngkt")
+
+[node name="playerSprite" type="Sprite2D" parent="Player"]
+position = Vector2(72, 160)
+scale = Vector2(0.12173, 0.12173)
+texture = ExtResource("4_h3vfv")
+
+[node name="PlayerHealth" type="ProgressBar" parent="Player"]
+custom_minimum_size = Vector2(2.08165e-12, 30)
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 32.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_ts1kw")
+max_value = 10.0
+step = 1.0
+value = 10.0
+show_percentage = false
+
+[node name="Health" type="Label" parent="Player"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 8.0
+offset_right = 88.0
+offset_bottom = 24.0
+text = "10
+"
+label_settings = SubResource("LabelSettings_u6cjv")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -192.0
+offset_top = -55.2
+offset_right = 64.0
+offset_bottom = -8.20001
+grow_horizontal = 2
+grow_vertical = 0
+text = "End Turn"
+
+[node name="EnemyPanel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 717.0
+offset_right = 1021.0
+offset_bottom = 184.0
+
+[node name="attackDiceImagesContainer" type="HBoxContainer" parent="EnemyPanel"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 224.0
+offset_bottom = 88.0
+
+[node name="defenseDiceImagesContainer" type="HBoxContainer" parent="EnemyPanel"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 96.0
+offset_right = 224.0
+offset_bottom = 176.0
+
+[node name="attack" type="Label" parent="EnemyPanel"]
+layout_mode = 0
+offset_left = 231.8
+offset_top = 31.2
+offset_right = 295.8
+offset_bottom = 63.2
+text = "Attack"
+vertical_alignment = 1
+
+[node name="defense" type="Label" parent="EnemyPanel"]
+layout_mode = 0
+offset_left = 231.8
+offset_top = 119.2
+offset_right = 295.8
+offset_bottom = 151.2
+text = "Defense"
+vertical_alignment = 1
+
+[node name="Enemy" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 717.0
+offset_top = 279.0
+offset_right = 973.0
+offset_bottom = 567.0
+
+[node name="EnemySprite" type="Sprite2D" parent="Enemy"]
+position = Vector2(128, 160)
+scale = Vector2(-0.25, 0.25)
+
+[node name="PlayerHealth" type="ProgressBar" parent="Enemy"]
+custom_minimum_size = Vector2(2.08165e-12, 30)
+layout_mode = 0
+offset_left = 63.8
+offset_top = 0.200012
+offset_right = 191.8
+offset_bottom = 32.2
+theme_override_styles/fill = SubResource("StyleBoxFlat_ts1kw")
+max_value = 10.0
+step = 1.0
+value = 10.0
+show_percentage = false
+
+[node name="Health" type="Label" parent="Enemy"]
+layout_mode = 0
+offset_left = 103.8
+offset_top = 8.20001
+offset_right = 151.8
+offset_bottom = 24.2
+text = "10
+"
+label_settings = SubResource("LabelSettings_u6cjv")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="configurationPanel/attackConfigurationHbox/amountSpinnerContainer/up" to="." method="_attack_amount_up"]
+[connection signal="pressed" from="configurationPanel/attackConfigurationHbox/amountSpinnerContainer/down" to="." method="_attack_amount_down"]
+[connection signal="pressed" from="configurationPanel/attackConfigurationHbox/diceSpinnerContainer/up" to="." method="_attack_dice_up"]
+[connection signal="pressed" from="configurationPanel/attackConfigurationHbox/diceSpinnerContainer/down" to="." method="_attack_dice_down"]
+[connection signal="pressed" from="configurationPanel/defenseConfigurationHbox/amountSpinnerContainer/up" to="." method="_defense_amount_up"]
+[connection signal="pressed" from="configurationPanel/defenseConfigurationHbox/amountSpinnerContainer/down" to="." method="_defense_amount_down"]
+[connection signal="pressed" from="configurationPanel/defenseConfigurationHbox/diceSpinnerContainer/up" to="." method="_defense_dice_up"]
+[connection signal="pressed" from="configurationPanel/defenseConfigurationHbox/diceSpinnerContainer/down" to="." method="_defense_dice_down"]
+[connection signal="pressed" from="Button" to="." method="_end_turn_pressed"]
