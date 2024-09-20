@@ -13,7 +13,12 @@ config_version=5
 config/name="Isg"
 run/main_scene="res://scenes/ui.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
-config/icon="res://icon.svg"
+config/icon="res://art/duckclaw-icon.png"
+
+[display]
+
+window/size/viewport_width=1440
+window/size/viewport_height=814
 
 [editor]
 

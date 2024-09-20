@@ -30,27 +30,24 @@ grow_vertical = 2
 script = ExtResource("1_vxw6i")
 
 [node name="Background" type="TextureRect" parent="."]
-layout_mode = 0
-offset_left = -114.0
-offset_top = -67.0
-offset_right = 1037.0
-offset_bottom = 583.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("2_f8phi")
-expand_mode = 1
+stretch_mode = 4
 
 [node name="configurationPanel" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.015
-anchor_top = 0.397
-anchor_right = 0.495
-anchor_bottom = 0.577
-offset_left = -65.024
-offset_top = -205.605
-offset_right = -66.392
-offset_bottom = -26.917
-grow_horizontal = 2
-grow_vertical = 2
+anchor_left = -0.0555556
+anchor_top = 0.000385826
+anchor_right = 0.42296
+anchor_bottom = 0.525077
+grow_vertical = 0
+metadata/_edit_use_anchors_ = true
 
 [node name="attackConfigurationHbox" type="HBoxContainer" parent="configurationPanel"]
 layout_mode = 2
@@ -62,6 +59,7 @@ offset_left = -1.0
 offset_top = 54.0
 offset_right = 43.0
 offset_bottom = 150.0
+metadata/_edit_use_anchors_ = true
 
 [node name="amountSpinnerContainer" type="VBoxContainer" parent="configurationPanel/attackConfigurationHbox"]
 layout_mode = 2
@@ -103,6 +101,7 @@ offset_left = 63.8
 offset_top = 72.2
 offset_right = 423.8
 offset_bottom = 152.2
+metadata/_edit_use_anchors_ = true
 
 [node name="defenseConfigurationHbox" type="HBoxContainer" parent="configurationPanel"]
 layout_mode = 0
@@ -110,6 +109,7 @@ offset_left = 7.8
 offset_top = 167.2
 offset_right = 51.8
 offset_bottom = 263.2
+metadata/_edit_use_anchors_ = true
 
 [node name="amountSpinnerContainer" type="VBoxContainer" parent="configurationPanel/defenseConfigurationHbox"]
 layout_mode = 2
@@ -151,6 +151,7 @@ offset_left = 63.8
 offset_top = 176.2
 offset_right = 423.8
 offset_bottom = 256.2
+metadata/_edit_use_anchors_ = true
 
 [node name="particlePointsDisplay" type="Label" parent="configurationPanel"]
 layout_mode = 0
@@ -165,18 +166,19 @@ vertical_alignment = 1
 
 [node name="Player" type="Control" parent="."]
 layout_mode = 1
-anchor_right = 0.101
-anchor_bottom = 0.415
-offset_left = 76.8
-offset_top = 279.2
-offset_right = 111.718
-offset_bottom = 336.064
-grow_vertical = 2
+anchor_left = -0.0520833
+anchor_top = 0.570988
+anchor_right = 0.083
+anchor_bottom = 1.11
+offset_right = -124.493
+offset_bottom = -279.424
 script = ExtResource("3_0ngkt")
+metadata/_edit_use_anchors_ = true
 
 [node name="playerSprite" type="Sprite2D" parent="Player"]
 position = Vector2(72, 160)
 scale = Vector2(0.12173, 0.12173)
+skew = -0.0174533
 texture = ExtResource("4_h3vfv")
 
 [node name="PlayerHealth" type="ProgressBar" parent="Player"]
@@ -202,26 +204,30 @@ label_settings = SubResource("LabelSettings_u6cjv")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Button" type="Button" parent="."]
+[node name="End Turn" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -192.0
-offset_top = -55.2
-offset_right = 64.0
-offset_bottom = -8.20001
+offset_left = -191.8
+offset_top = -79.4
+offset_right = 192.2
+offset_bottom = -0.400024
 grow_horizontal = 2
 grow_vertical = 0
 text = "End Turn"
 
 [node name="EnemyPanel" type="Panel" parent="."]
-layout_mode = 0
-offset_left = 717.0
-offset_right = 1021.0
-offset_bottom = 184.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.795139
+anchor_top = 0.000385826
+anchor_right = 1.125
+anchor_bottom = 0.355324
+offset_right = -3.81469e-05
+metadata/_edit_use_anchors_ = true
 
 [node name="attackDiceImagesContainer" type="HBoxContainer" parent="EnemyPanel"]
 layout_mode = 0
@@ -229,6 +235,7 @@ offset_left = 8.0
 offset_top = 8.0
 offset_right = 224.0
 offset_bottom = 88.0
+metadata/_edit_use_anchors_ = true
 
 [node name="defenseDiceImagesContainer" type="HBoxContainer" parent="EnemyPanel"]
 layout_mode = 0
@@ -236,6 +243,7 @@ offset_left = 8.0
 offset_top = 96.0
 offset_right = 224.0
 offset_bottom = 176.0
+metadata/_edit_use_anchors_ = true
 
 [node name="attack" type="Label" parent="EnemyPanel"]
 layout_mode = 0
@@ -245,6 +253,7 @@ offset_right = 295.8
 offset_bottom = 63.2
 text = "Attack"
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="defense" type="Label" parent="EnemyPanel"]
 layout_mode = 0
@@ -254,19 +263,25 @@ offset_right = 295.8
 offset_bottom = 151.2
 text = "Defense"
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="Enemy" type="Control" parent="."]
-anchors_preset = 0
-offset_left = 717.0
-offset_top = 279.0
-offset_right = 973.0
-offset_bottom = 567.0
+layout_mode = 1
+anchor_left = 0.847222
+anchor_top = 0.569444
+anchor_right = 1.125
+anchor_bottom = 1.125
+offset_left = -2.52618e-05
+offset_top = -1.50468e-05
+offset_right = -5.03541e-05
+offset_bottom = -2.44141e-05
+metadata/_edit_use_anchors_ = true
 
 [node name="EnemySprite" type="Sprite2D" parent="Enemy"]
 position = Vector2(128, 160)
 scale = Vector2(-0.25, 0.25)
 
-[node name="PlayerHealth" type="ProgressBar" parent="Enemy"]
+[node name="EnemyHealth" type="ProgressBar" parent="Enemy"]
 custom_minimum_size = Vector2(2.08165e-12, 30)
 layout_mode = 0
 offset_left = 63.8
@@ -278,6 +293,7 @@ max_value = 10.0
 step = 1.0
 value = 10.0
 show_percentage = false
+metadata/_edit_use_anchors_ = true
 
 [node name="Health" type="Label" parent="Enemy"]
 layout_mode = 0
@@ -290,6 +306,7 @@ text = "10
 label_settings = SubResource("LabelSettings_u6cjv")
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [connection signal="pressed" from="configurationPanel/attackConfigurationHbox/amountSpinnerContainer/up" to="." method="_attack_amount_up"]
 [connection signal="pressed" from="configurationPanel/attackConfigurationHbox/amountSpinnerContainer/down" to="." method="_attack_amount_down"]
@@ -299,4 +316,4 @@ vertical_alignment = 1
 [connection signal="pressed" from="configurationPanel/defenseConfigurationHbox/amountSpinnerContainer/down" to="." method="_defense_amount_down"]
 [connection signal="pressed" from="configurationPanel/defenseConfigurationHbox/diceSpinnerContainer/up" to="." method="_defense_dice_up"]
 [connection signal="pressed" from="configurationPanel/defenseConfigurationHbox/diceSpinnerContainer/down" to="." method="_defense_dice_down"]
-[connection signal="pressed" from="Button" to="." method="_end_turn_pressed"]
+[connection signal="pressed" from="End Turn" to="." method="_end_turn_pressed"]

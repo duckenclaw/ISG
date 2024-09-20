@@ -2,6 +2,7 @@ extends Control
 
 var playerObject
 var enemyObject
+@export var scaleIncrease = 1
 
 func _ready():
 	playerObject = $Player
@@ -36,6 +37,7 @@ func prepare_enemy():
 	var enemyTexturePath = "res://art/" + enemy + ".png"
 	enemyObject.set_script(load(enemyScriptPath))
 	enemyObject.get_children()[0].texture = load(enemyTexturePath)
+	$Enemy/EnemyHealth.max_value = enemyObject.hp
 
 func update_ui():
 	$configurationPanel/attackConfigurationHbox/amountSpinnerContainer/diceAmountDisplay.text = str(playerObject.weaponPP)
@@ -44,8 +46,11 @@ func update_ui():
 	$configurationPanel/defenseConfigurationHbox/diceSpinnerContainer/diceCategoryDisplay.text = str(playerObject.defenseDiceCategory)
 	$configurationPanel/particlePointsDisplay.text = str(playerObject.particlePoints)
 	$Player/Health.text = str(playerObject.hp)
+	$Player/PlayerHealth.value = playerObject.hp
 	
 	$Enemy/Health.text = str(enemyObject.hp)
+	$Enemy/EnemyHealth.value = enemyObject.hp
+	
 	render_dice(true, true)
 	render_dice(false, true)
 	render_dice(true, false)
@@ -176,8 +181,22 @@ func _defense_dice_down():
 func deal_damage(damageResults, target):
 	for result in damageResults:
 		target.hp -= result
-		print("dealt " + str(result) + " damage to " + str(target))
-		print(str(target.hp))
+		print("dealt " + str(result) + " damage to " + target.name)
+		print(target.name + "HP: " + str(target.hp))
+		
+func delete_dice(attackDiceContainer, defenseDiceContainer, attackDice, defenseDice):
+	attackDiceContainer[attackDice].scale.x += scaleIncrease
+	attackDiceContainer[attackDice].scale.y += scaleIncrease
+	defenseDiceContainer[defenseDice].scale.x += scaleIncrease
+	defenseDiceContainer[defenseDice].scale.y += scaleIncrease
+	await get_tree().create_timer(1.0).timeout
+	attackDiceContainer[attackDice].scale.x -= scaleIncrease
+	attackDiceContainer[attackDice].scale.y -= scaleIncrease
+	defenseDiceContainer[defenseDice].scale.x -= scaleIncrease
+	defenseDiceContainer[defenseDice].scale.y -= scaleIncrease
+	await get_tree().create_timer(0.5).timeout
+	attackDiceContainer[attackDice].visible = !attackDiceContainer[attackDice].visible
+	defenseDiceContainer[defenseDice].visible = !defenseDiceContainer[defenseDice].visible
 
 func _end_turn_pressed():
 	var playerAttackResults = playerObject.roll_damage()
@@ -186,50 +205,71 @@ func _end_turn_pressed():
 	var enemyDefenseResults = enemyObject.roll_defense()
 	var newPlayerAttackResults = []
 	var newEnemyAttackResults = []
-	var scaleIncrease = 1
 	render_results(playerAttackResults, true, true)
 	render_results(playerDefenseResults, false, true)
 	render_results(enemyAttackResults, true, false)
 	render_results(enemyDefenseResults, false, false)
-	for playerDice in len(playerAttackResults):
-		var playerResult = playerAttackResults[playerDice]
-		var enemyDice = enemyDefenseResults.find(playerResult)
-		if playerResult in enemyDefenseResults:
-			await get_tree().create_timer(1.0).timeout
-			$configurationPanel/attackDiceImagesContainer.get_children()[playerDice].scale.x += scaleIncrease
-			$configurationPanel/attackDiceImagesContainer.get_children()[playerDice].scale.y += scaleIncrease
-			$EnemyPanel/defenseDiceImagesContainer.get_children()[enemyDice].scale.x += scaleIncrease
-			$EnemyPanel/defenseDiceImagesContainer.get_children()[enemyDice].scale.y += scaleIncrease
-			await get_tree().create_timer(1.0).timeout
-			$configurationPanel/attackDiceImagesContainer.get_children()[playerDice].scale.x -= scaleIncrease
-			$configurationPanel/attackDiceImagesContainer.get_children()[playerDice].scale.y -= scaleIncrease
-			$EnemyPanel/defenseDiceImagesContainer.get_children()[enemyDice].scale.x -= scaleIncrease
-			$EnemyPanel/defenseDiceImagesContainer.get_children()[enemyDice].scale.y -= scaleIncrease
-			await get_tree().create_timer(0.5).timeout
-			$configurationPanel/attackDiceImagesContainer.get_children()[playerDice].queue_free()
-			$EnemyPanel/defenseDiceImagesContainer.get_children()[enemyDice].queue_free()
-		else:
-			newPlayerAttackResults.append(playerResult)
 	
-	for enemyDice in len(enemyAttackResults):
-		var enemyResult = enemyAttackResults[enemyDice]
-		var playerDice = enemyDefenseResults.find(enemyResult)
-		if enemyResult in playerDefenseResults:
-			await get_tree().create_timer(1.0).timeout
-			$EnemyPanel/defenseDiceImagesContainer.get_children()[enemyDice].scale.x += scaleIncrease
-			$EnemyPanel/defenseDiceImagesContainer.get_children()[enemyDice].scale.y += scaleIncrease
-			$configurationPanel/attackDiceImagesContainer.get_children()[playerDice].scale.x += scaleIncrease
-			$configurationPanel/attackDiceImagesContainer.get_children()[playerDice].scale.y += scaleIncrease
-			await get_tree().create_timer(1.0).timeout
-			$EnemyPanel/defenseDiceImagesContainer.get_children()[enemyDice].scale.x -= scaleIncrease
-			$EnemyPanel/defenseDiceImagesContainer.get_children()[enemyDice].scale.y -= scaleIncrease
-			$configurationPanel/attackDiceImagesContainer.get_children()[playerDice].scale.x -= scaleIncrease
-			$configurationPanel/attackDiceImagesContainer.get_children()[playerDice].scale.y -= scaleIncrease
-			await get_tree().create_timer(0.5).timeout
-			$EnemyPanel/defenseDiceImagesContainer.get_children()[enemyDice].queue_free()
-			$configurationPanel/attackDiceImagesContainer.get_children()[playerDice].queue_free()
+	# Match and remove attack and defense rolls for the player
+	var usedDefenseIndices = []  # Track defense rolls that have been used
+	for i in range(playerAttackResults.size()):
+		var attack = playerAttackResults[i]
+		var defenseIndex = -1
+		
+		# Find a matching defense roll that hasn't already been used
+		for j in range(enemyDefenseResults.size()):
+			if attack == enemyDefenseResults[j] and not j in usedDefenseIndices:
+				defenseIndex = j
+				break
+
+		if defenseIndex != -1:
+			usedDefenseIndices.append(defenseIndex)  # Mark this defense roll as used
+			enemyDefenseResults.erase(defenseIndex)  # Remove matched defense roll
+			delete_dice($configurationPanel/attackDiceImagesContainer.get_children(), $EnemyPanel/defenseDiceImagesContainer.get_children(), i, defenseIndex)  # Remove dice visuals
 		else:
-			newEnemyAttackResults.append(enemyResult)
+			newPlayerAttackResults.append(attack)  # Unmatched attack goes into newPlayerAttackResults
+
+	# Match and remove attack and defense rolls for the enemy
+	var usedPlayerDefenseIndices = []  # Track player's defense rolls that have been used
+	for i in range(enemyAttackResults.size()):
+		var attack = enemyAttackResults[i]
+		var defenseIndex = -1
+		
+		# Find a matching defense roll that hasn't already been used
+		for j in range(playerDefenseResults.size()):
+			if attack == playerDefenseResults[j] and not j in usedPlayerDefenseIndices:
+				defenseIndex = j
+				break
+		
+		if defenseIndex != -1:
+			usedPlayerDefenseIndices.append(defenseIndex)  # Mark this defense roll as used
+			playerDefenseResults.erase(defenseIndex)  # Remove matched defense roll
+			delete_dice($EnemyPanel/attackDiceImagesContainer.get_children(), $configurationPanel/defenseDiceImagesContainer.get_children(), i, defenseIndex)  # Remove dice visuals
+		else:
+			newEnemyAttackResults.append(attack)  # Unmatched attack goes into newEnemyAttackResults
+
+	
+	#for playerDice in len(playerAttackResults):
+		#var playerResult = playerAttackResults[playerDice]
+		#var enemyDice = enemyDefenseResults.find(playerResult)
+		#print("enemyDice: " + str(enemyDice))
+		#if playerResult in enemyDefenseResults:
+			#playerAttackResults.erase(playerDice)
+			#enemyAttackResults.erase(enemyDice)
+			#delete_dice($configurationPanel/attackDiceImagesContainer.get_children(), $EnemyPanel/defenseDiceImagesContainer.get_children(), playerDice, enemyDice)
+		#else:
+			#newPlayerAttackResults.append(playerResult)
+	#
+	#for enemyDice in len(enemyAttackResults):
+		#var enemyResult = enemyAttackResults[enemyDice]
+		#var playerDice = playerDefenseResults.find(enemyResult)
+		#print("playerDice: " + str(playerDice))
+		#if enemyResult in playerDefenseResults:
+			#enemyAttackResults.erase(enemyDice)
+			#playerAttackResults.erase(playerDice)
+			#delete_dice($EnemyPanel/attackDiceImagesContainer.get_children(), $configurationPanel/defenseDiceImagesContainer.get_children(), enemyDice, playerDice)
+		#else:
+			#newEnemyAttackResults.append(enemyResult)
 				
 	print("player's final rolls")
 	print(newPlayerAttackResults)
@@ -237,3 +277,5 @@ func _end_turn_pressed():
 	print(newEnemyAttackResults)
 	deal_damage(newPlayerAttackResults, enemyObject)
 	deal_damage(newEnemyAttackResults, playerObject)
+	await get_tree().create_timer(2.0).timeout
+	update_ui()
